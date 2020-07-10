@@ -14,4 +14,9 @@ public class StringCalculatorTest {
         Assert.assertEquals(3, stringCalculator.Add(",1,2,"));
         Assert.assertEquals(3, stringCalculator.Add(",,,1,,,,2,,,,"));
     }
+    @Test
+    public void task3() {
+        StringCalculator stringCalculator = new StringCalculator();
+        Assert.assertEquals(1, stringCalculator.Add("1\n"));
+    }
 }

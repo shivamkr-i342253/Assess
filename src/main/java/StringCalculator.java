@@ -1,6 +1,7 @@
 import java.util.regex.Pattern;
 
 public class StringCalculator {
+    public StringBuffer negatives = new StringBuffer("");
 
     public int Add(String s) {
 
@@ -30,18 +31,19 @@ public class StringCalculator {
                         // check invalid input expecting atleast a digit
                         if (checkValidString(z)) {
 
-                            res += splitAndAdd(z.replaceAll("\n", "-"));
+                            res += splitAndAdd(z.replaceAll("\n", "`"));
 
                         }
                         else return -1;
                     }
                     res += 0;
                 }
+
                 return res;
             }
             else if (checkValidString(s)) {
 
-                return splitAndAdd(s.replaceAll("\n", "-"));
+                return splitAndAdd(s.replaceAll("\n", "`"));
 
             }
             else return -1;
@@ -50,17 +52,20 @@ public class StringCalculator {
         return 0;
     }
 
+
     private int splitAndAdd(String str) {
 
-        String[] nos = str.split("-");
+        String[] nos = str.split("`");
 
         int res = 0;
         for (String z : nos) {
 
             if (z.length() != 0) {
 
-                res += Integer.parseInt(z);
-
+                if (Integer.parseInt(z) < 0) {
+                    negatives.append(" "+z);
+                }
+                else res += Integer.parseInt(z);
             }
             res += 0;
 
@@ -68,9 +73,11 @@ public class StringCalculator {
         return res;
     }
 
+
     private boolean checkValidString(String digz) {
 
         return Pattern.compile( "[0-9]" ).matcher( digz ).find();
 
     }
+
 }

@@ -57,4 +57,12 @@ public class StringCalculatorTest {
             assertEquals("negatives not allowed  -7 -2 -9 -53 -1", e.getMessage());
         }
     }
+
+    @Test
+    public void task6() {
+        StringCalculator stringCalculator = new StringCalculator();
+        assertEquals(-1, stringCalculator.Add("//;\n"));
+        assertEquals(0, stringCalculator.Add("//;\n1001"));
+        assertEquals(11, stringCalculator.Add("//;\n4553\n5\n;6"));
+    }
 }

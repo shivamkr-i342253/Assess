@@ -17,6 +17,10 @@ public class StringCalculatorTest {
     @Test
     public void task3() {
         StringCalculator stringCalculator = new StringCalculator();
-        Assert.assertEquals(1, stringCalculator.Add("1\n"));
+        Assert.assertEquals(-1, stringCalculator.Add("\n"));
+        Assert.assertEquals(4, stringCalculator.Add("4\n"));
+        Assert.assertEquals(-1, stringCalculator.Add("4,\n"));
+        Assert.assertEquals(5, stringCalculator.Add(",3,2\n"));
+        Assert.assertEquals(27, stringCalculator.Add(",,,,,\n1\n2\n,,,,\n7\n5,,3\n9\n,,,"));
     }
 }

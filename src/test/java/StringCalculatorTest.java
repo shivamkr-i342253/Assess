@@ -27,6 +27,8 @@ public class StringCalculatorTest {
     @Test
     public void task4() {
         StringCalculator stringCalculator = new StringCalculator();
-        Assert.assertEquals(-3, stringCalculator.Add("//;\n1;2"));
+        Assert.assertEquals(-1, stringCalculator.Add("//;\n"));
+        Assert.assertEquals(7, stringCalculator.Add("//;\n7"));
+        Assert.assertEquals(54, stringCalculator.Add("//;\n43\n5\n;6"));
     }
 }

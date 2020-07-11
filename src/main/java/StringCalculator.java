@@ -5,10 +5,23 @@ public class StringCalculator {
     public int Add(String s) {
 
         if (s.length() != 0) {
+
+            StringBuffer delim = new StringBuffer(",");
+            StringBuffer newStr = new StringBuffer("");
+
+            if (s.contains("//")) {
+
+                delim.replace(0, delim.length(), s.substring(2,3));
+                newStr.replace(0, newStr.length(), s.substring(2, s.length()));
+
+            }
+            String del = delim.toString();
+            String newS = (newStr.length() == 0) ? s : newStr.toString();
+
             // check for delimeter
-            if (s.contains(",")) {
+            if (newS.contains(del)) {
                 // split the given string by delimeter
-                String[] nos = s.split(",");
+                String[] nos = newS.split(del);
 
                 int res = 0;
                 for (String z : nos) {

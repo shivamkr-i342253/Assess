@@ -23,4 +23,10 @@ public class StringCalculatorTest {
         Assert.assertEquals(5, stringCalculator.Add(",3,2\n"));
         Assert.assertEquals(27, stringCalculator.Add(",,,,,\n1\n2\n,,,,\n7\n5,,3\n9\n,,,"));
     }
+
+    @Test
+    public void task4() {
+        StringCalculator stringCalculator = new StringCalculator();
+        Assert.assertEquals(-3, stringCalculator.Add("//;\n1;2"));
+    }
 }

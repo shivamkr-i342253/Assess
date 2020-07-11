@@ -38,7 +38,15 @@ public class StringCalculator {
                     }
                     res += 0;
                 }
+                try {
 
+                    if (negatives.length() > 0) {
+                        throw new NegativesNotAllowedException("negatives not allowed "+negatives);
+                    }
+                }
+                catch (NegativesNotAllowedException e) {
+                    System.out.println(e.getMessage());
+                }
                 return res;
             }
             else if (checkValidString(s)) {
@@ -80,4 +88,10 @@ public class StringCalculator {
 
     }
 
+
+    static class NegativesNotAllowedException extends Exception {
+        public NegativesNotAllowedException(String ex) {
+            super(ex);
+        }
+    }
 }

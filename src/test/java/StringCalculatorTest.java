@@ -1,6 +1,8 @@
 import org.junit.Test;
+import org.junit.Assert;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 public class StringCalculatorTest {
     @Test
@@ -35,8 +37,26 @@ public class StringCalculatorTest {
 
     @Test
     public void task5() {
-        StringCalculator stringCalculator = new StringCalculator();
-        stringCalculator.Add("//;-7\n;-2\n2\n8\n\n;-9");
-        assertEquals("negatives not allowed  -7 -2 -9", "negatives not allowed "+stringCalculator.negatives);
+        try {
+            StringCalculator stringCalculator = new StringCalculator();
+            stringCalculator.Add("//;-7\n");
+            throw new StringCalculator.NegativesNotAllowedException("negatives not allowed "+stringCalculator.negatives);
+        } catch (StringCalculator.NegativesNotAllowedException e) {
+            assertEquals("negatives not allowed  -7", e.getMessage());
+        }
+        try {
+            StringCalculator stringCalculator = new StringCalculator();
+            stringCalculator.Add("//;-7\n;-2\n2\n8\n\n;-9");
+            throw new StringCalculator.NegativesNotAllowedException("negatives not allowed "+stringCalculator.negatives);
+        } catch (StringCalculator.NegativesNotAllowedException e) {
+            assertEquals("negatives not allowed  -7 -2 -9", e.getMessage());
+        }
+        try {
+            StringCalculator stringCalculator = new StringCalculator();
+            stringCalculator.Add("//;-7\n;-2\n2\n8\n\n;-9;;;\n\n-53\n-1\n");
+            throw new StringCalculator.NegativesNotAllowedException("negatives not allowed "+stringCalculator.negatives);
+        } catch (StringCalculator.NegativesNotAllowedException e) {
+            assertEquals("negatives not allowed  -7 -2 -9 -53 -1", e.getMessage());
+        }
     }
 }

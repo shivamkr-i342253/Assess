@@ -9,7 +9,13 @@ public class StringCalculator {
 
             StringBuffer d = new StringBuffer("");
             StringBuffer newStr = new StringBuffer("");
+//            Support different delimiters with including reserved regex characters like '$', '*', '.', '+'
             boolean spCh_flag = false;
+
+//            support multiple delimiters
+            StringBuffer multDelims = new StringBuffer("");
+            StringBuffer currDel = new StringBuffer("");
+            boolean multiDelim_flag = false;
 
             if (s.contains("//")) {
 
@@ -18,40 +24,67 @@ public class StringCalculator {
 
                 if (c.equals("[")) {
 
-                    int ind = s.indexOf('\n');
-                    d.replace(0, d.length(), s.substring(3, ind-1));
+                    multiDelim_flag = true;
+                    //get the index just after first '[' in provided s
+                    int ind = s.indexOf('[') + 1;
 
-                    if (checkForSpecialChars(d.toString())) {
+                    while (s.charAt(ind) != '\n') {
 
-                        spCh_flag = true;
+                        if (s.charAt(ind) == ']') {
+
+                            if ((multDelims.length() == 0)) {
+
+                                multDelims.append("["+currDel+"]");
+
+                            }
+                            else {
+
+                                multDelims.append("|[" + currDel+"]");
+
+                            }
+                            currDel.replace(0, currDel.length(), "");
+
+                            ind++;
+                            if (s.charAt(ind) == '\n') break;
+
+                        }
+                        else {
+
+                            currDel.append(s.charAt(ind));
+
+                        }
+                        ind++;
+
                     }
+                    d.replace(0, d.length(), s.substring(s.indexOf('[') + 1, s.indexOf(']')));
+
                     newStr.replace(0, newStr.length(), s.substring(ind, s.length()));
+
                 }
                 else {
 
                     newStr.replace(0, newStr.length(), s.substring(2, s.length()));
+
                     if (checkForSpecialChars(c)) {
 
                         spCh_flag = true;
+
                     }
                 }
-
             }
+
             String del = (d.length() == 0) ? "," : d.toString();
-//            System.out.println(del);
-//            System.out.println(spCh_flag);
-            String delim = (spCh_flag) ? "["+del+"]" : del;
+            String delim = (multiDelim_flag) ? multDelims.toString() : ((spCh_flag) ? "["+del+"]" : del);
             String newS = (newStr.length() == 0) ? s : newStr.toString();
-//            System.out.println(newStr.length());
+
             // check for delimeter
             if (newS.contains(del)) {
                 // split the given string by delimeter
-                System.out.println(delim);
                 String[] nos = newS.split(delim);
-//
+
                 int res = 0;
                 for (String z : nos) {
-//                    System.out.println(z);
+
                     if (z.length() != 0) {
                         // check invalid input expecting atleast a digit
                         if (checkValidString(z)) {
@@ -60,22 +93,15 @@ public class StringCalculator {
 
                         }
                         else return -1;
+
                     }
                     res += 0;
                 }
 
-                try {
-                    if (negatives.length() > 0) {
-
-                        throw new NegativesNotAllowedException("negatives not allowed "+negatives);
-                    }
-                }
-                catch (NegativesNotAllowedException e) {
-
-                    System.out.println(e.getMessage());
-                }
+                displayNegatives();
 
                 return res;
+
             }
             else if (checkValidString(newS)) {
 
@@ -101,11 +127,14 @@ public class StringCalculator {
                 if (Integer.parseInt(z) < 0) {
 
                     negatives.append(" "+z);
+
                 }
                 else if (Integer.parseInt(z) < 1001) {
 
                     res += Integer.parseInt(z);
+
                 }
+
             }
             res += 0;
 
@@ -122,15 +151,19 @@ public class StringCalculator {
 
     private boolean checkForSpecialChars(String spChars) {
         if (spChars.length() > 1) {
+
             if (spChars.contains("+") || spChars.contains("^") || spChars.contains("*") || spChars.contains(".") || spChars.contains("$"))  {
 
                 return true;
+
             }
         }
         else {
+
             if (spChars.equals("+") || spChars.equals("^") || spChars.equals("*") || spChars.equals(".") || spChars.equals("$"))  {
 
                 return true;
+
             }
         }
         return false;
@@ -138,14 +171,31 @@ public class StringCalculator {
 
 
     static class NegativesNotAllowedException extends Exception {
+
         public NegativesNotAllowedException(String ex) {
             super(ex);
         }
     }
 
+    private void displayNegatives() {
+        try {
+            if (negatives.length() > 0) {
+
+                throw new NegativesNotAllowedException("negatives not allowed "+negatives);
+
+            }
+        }
+        catch (NegativesNotAllowedException e) {
+
+            System.out.println(e.getMessage());
+
+        }
+    }
+
+
     public static void main(String args[]) {
+
         StringCalculator stringCalculator = new StringCalculator();
-        stringCalculator.Add("//[!!!]\n4553\n5\n!!!6\n\n!!!\n4!!!3");
 //        stringCalculator.Add("//[^^^]\n1^^^2^^^3");
     }
 

@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 public class StringCalculatorTest {
     @Test
+//    Create a simple String calculator
     public void task1AndTask2() {
         StringCalculator stringCalculator = new StringCalculator();
         int charDigitSum = stringCalculator.Add("");
@@ -16,6 +17,7 @@ public class StringCalculatorTest {
         assertEquals(3, stringCalculator.Add(",,,1,,,,2,,,,"));
     }
     @Test
+//    handle new lines between numbers (instead of commas) - ok: “1\n2,3” ; NOT ok: “1,\n”
     public void task3() {
         StringCalculator stringCalculator = new StringCalculator();
         assertEquals(-1, stringCalculator.Add("\n"));
@@ -26,6 +28,7 @@ public class StringCalculatorTest {
     }
 
     @Test
+//    Support different delimiters
     public void task4() {
         StringCalculator stringCalculator = new StringCalculator();
         assertEquals(-1, stringCalculator.Add("//;\n"));
@@ -44,6 +47,7 @@ public class StringCalculatorTest {
     }
 
     @Test
+//    throw an exception “negatives not allowed” - and the negative that was passed.
     public void task5() {
         try {
             StringCalculator stringCalculator = new StringCalculator();
@@ -69,6 +73,7 @@ public class StringCalculatorTest {
     }
 
     @Test
+//    Numbers bigger than 1000 should be ignored
     public void task6() {
         StringCalculator stringCalculator = new StringCalculator();
         assertEquals(-1, stringCalculator.Add("//;\n"));
@@ -84,6 +89,7 @@ public class StringCalculatorTest {
     }
 
     @Test
+//    Delimiters can be of any length “//[***]\n1***2***3”
     public void task7() {
         StringCalculator stringCalculator = new StringCalculator();
         assertEquals(-1, stringCalculator.Add("//***\n"));
@@ -94,8 +100,21 @@ public class StringCalculatorTest {
     }
 
     @Test
+//    multiple delimiters “//[*][%]\n1*2%3”
     public void task8() {
         StringCalculator stringCalculator = new StringCalculator();
+        assertEquals(24, stringCalculator.Add("//[;]\n1;23"));
         assertEquals(6, stringCalculator.Add("//[;][%]\n1;2%3"));
+        assertEquals(19, stringCalculator.Add("//[;][%][&][*]\n1;2%3&\n\n6\n*\n7*&%;"));
+        assertEquals(23, stringCalculator.Add("//[:][.][!][@][#]\n1:2.3!\n\n6\n@4\n7#."));
+    }
+
+    @Test
+//    multiple delimiters with length longer than one char
+    public void task9() {
+        StringCalculator stringCalculator = new StringCalculator();
+        assertEquals(6, stringCalculator.Add("//[;;;][%%]\n1;;;2%%3"));
+        assertEquals(21, stringCalculator.Add("//[***][-][@@][++++]\n1***2\n4\n@@-3++++7\n\n4\n-"));
+        assertEquals(39, stringCalculator.Add("//[&][----][$$$][##][......]\n1----2\n4\n##&3$$$7\n\n4\n&......4\n\n9......\n5"));
     }
 }

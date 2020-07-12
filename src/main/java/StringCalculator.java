@@ -46,7 +46,7 @@ public class StringCalculator {
             // check for delimeter
             if (newS.contains(del)) {
                 // split the given string by delimeter
-//                System.out.println(delim);
+                System.out.println(delim);
                 String[] nos = newS.split(delim);
 //
                 int res = 0;
@@ -145,7 +145,7 @@ public class StringCalculator {
 
     public static void main(String args[]) {
         StringCalculator stringCalculator = new StringCalculator();
-        stringCalculator.Add("//;\n7");
+        stringCalculator.Add("//[!!!]\n4553\n5\n!!!6\n\n!!!\n4!!!3");
 //        stringCalculator.Add("//[^^^]\n1^^^2^^^3");
     }
 

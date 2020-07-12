@@ -90,6 +90,12 @@ public class StringCalculatorTest {
         assertEquals(6, stringCalculator.Add("//[***]\n1***2***3"));
         assertEquals(35, stringCalculator.Add("//[$$]\n4$$\n17$$1001$$3\n5\n6$$"));
 //        assertEquals(6, stringCalculator.Add("//[^^^]\n1^^^2^^^3"));
-        assertEquals(18, stringCalculator.Add("//[!]\n4553\n5\n!6\n\n!\n4!3"));
+        assertEquals(18, stringCalculator.Add("//[!!!]\n4553\n5\n!!!6\n\n!!!\n4!!!3"));
+    }
+
+    @Test
+    public void task8() {
+        StringCalculator stringCalculator = new StringCalculator();
+        assertEquals(6, stringCalculator.Add("//[;][%]\n1;2%3"));
     }
 }

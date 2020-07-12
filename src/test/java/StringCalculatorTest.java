@@ -31,6 +31,16 @@ public class StringCalculatorTest {
         assertEquals(-1, stringCalculator.Add("//;\n"));
         assertEquals(7, stringCalculator.Add("//;\n7"));
         assertEquals(54, stringCalculator.Add("//;\n43\n5\n;6"));
+        assertEquals(-1, stringCalculator.Add("//%\n"));
+        assertEquals(-1, stringCalculator.Add("//#\n"));
+        assertEquals(54, stringCalculator.Add("//#\n43\n5\n#6"));
+        assertEquals(36, stringCalculator.Add("//%\n4%%%\n17%1%3\n5\n6%%"));
+        assertEquals(35, stringCalculator.Add("//^\n4^^^\n17^1001^3\n5\n6^^"));
+        assertEquals(35, stringCalculator.Add("//&\n4&&&\n17&1001&3\n5\n6&&"));
+        assertEquals(35, stringCalculator.Add("//$\n4$$$\n17$1001$3\n5\n6$$"));
+        assertEquals(35, stringCalculator.Add("//*\n4***\n17*1001*3\n5\n6**"));
+        assertEquals(35, stringCalculator.Add("//+\n4+++\n17+1001+3\n5\n6++"));
+        assertEquals(4, stringCalculator.Add("//.\n4"));
     }
 
     @Test
@@ -62,7 +72,14 @@ public class StringCalculatorTest {
     public void task6() {
         StringCalculator stringCalculator = new StringCalculator();
         assertEquals(-1, stringCalculator.Add("//;\n"));
-        assertEquals(0, stringCalculator.Add("//;\n1001"));
-        assertEquals(11, stringCalculator.Add("//;\n4553\n5\n;6"));
+        assertEquals(0, stringCalculator.Add("//@\n1001"));
+        assertEquals(11, stringCalculator.Add("//!\n4553\n5\n!6"));
+        assertEquals(1035, stringCalculator.Add("//%\n4%%%\n17%1000%3\n5\n6%%"));
+        assertEquals(35, stringCalculator.Add("//^\n4^^^\n17^1001^3\n5\n6^^"));
+        assertEquals(35, stringCalculator.Add("//&\n4&&&\n17&1001&3\n5\n6&&"));
+        assertEquals(35, stringCalculator.Add("//$\n4$$$\n17$1001$3\n5\n6$$"));
+        assertEquals(35, stringCalculator.Add("//*\n4***\n17*1001*3\n5\n6**"));
+        assertEquals(35, stringCalculator.Add("//+\n4+++\n17+1001+3\n5\n6++"));
+        assertEquals(4, stringCalculator.Add("//.\n4"));
     }
 }

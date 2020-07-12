@@ -82,4 +82,11 @@ public class StringCalculatorTest {
         assertEquals(35, stringCalculator.Add("//+\n4+++\n17+1001+3\n5\n6++"));
         assertEquals(4, stringCalculator.Add("//.\n4"));
     }
+
+    @Test
+    public void task7() {
+        StringCalculator stringCalculator = new StringCalculator();
+        assertEquals(-1, stringCalculator.Add("//***\n"));
+        assertEquals(6, stringCalculator.Add("//[***]\n1***2***3"));
+    }
 }
